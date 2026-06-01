@@ -1,6 +1,8 @@
 import express, { type Express } from "express";
 import { studentsRouter } from "./routes/students.routes.js";
 import { tasksRouter } from "./routes/tasks.routes.js";
+import { requestId } from "./middleware/requestId.js";
+import { httpLogger } from "./middleware/logging.js";
 
 /**
  * Builds the Express application.
@@ -12,6 +14,8 @@ import { tasksRouter } from "./routes/tasks.routes.js";
 export function createApp(): Express {
   const app = express();
 
+  app.use(requestId);
+  app.use(httpLogger);
   app.use(express.json());
 
   app.get("/health", (_req, res) => {
