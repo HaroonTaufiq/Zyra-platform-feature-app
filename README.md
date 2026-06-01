@@ -86,7 +86,8 @@ npm run dev:frontend   # Vite dev server
 ## API contract
 
 Base URL: `http://localhost:4000`. All responses are JSON. Errors share the shape
-`{ "error": string, "message": string }`.
+`{ "error": string, "message": string }` (plus `"requestId"` on the `bonus`
+branch — see Task 2 below).
 
 ### `GET /health`
 Liveness probe. → `200 { "status": "ok", "service": "zyra-action-center-api" }`
@@ -176,3 +177,61 @@ computed once, authoritatively, on the server.
 fields (urgency, summary) are refetched from the source of truth. Presentational
 components (badges, cards, lists) are dumb and prop-driven, which keeps them trivial
 to test. API types mirror the backend so the contract is enforced end-to-end.
+
+---
+
+## Task 2 — Production Enhancements (`bonus` branch)
+
+Task 1 is on `main`; the production-hardening work lives on **`bonus`** so the
+diff is reviewable on its own. It adds:
+
+- **Request logging** — `morgan` logs every HTTP request (method, path, status,
+  duration), prefixed with the request id. Quiet during tests.
+- **Request IDs** — a `requestId` middleware assigns an `x-request-id` to each
+  request (honouring an inbound header from a gateway), echoes it on the response,
+  and includes it in **every error body**.
+- **Central error middleware** — controllers throw a typed `AppError`; one handler
+  maps known errors to their status/code and turns anything else into a logged
+  `500`. A `notFoundHandler` covers unmatched routes.
+- **Tests** — backend integration tests (Vitest + Supertest) for both endpoints
+  (200/400/404 + payload shape) and unit tests for the urgency rule; frontend tests
+  (Vitest + Testing Library + MSW) for the badge, the task status control, and the
+  page's loading/error flows.
+- **CI** — `.github/workflows/ci.yml` installs, builds, and runs both test suites
+  on every push/PR. The run is the CI log deliverable; a captured local run is in
+  [`docs/test-output.md`](docs/test-output.md).
+
+Run everything locally:
+
+```bash
+git checkout bonus
+npm install
+npm test          # backend (13) + frontend (6) — all green
+```
+
+### Performance decisions & tradeoffs
+
+- **Single aggregated endpoint.** `GET /students/:id/action-center` returns
+  profile + tasks + summary + unread count + messages in one response. One round
+  trip instead of three or four, and urgency/summary are computed once on the
+  server rather than re-derived on every client. Tradeoff: a slightly larger,
+  less granular payload — fine here, and easy to split or paginate later.
+- **Server state via TanStack Query.** Caching, request de-duplication and
+  background refetching come for free, so the page avoids redundant fetches and
+  hand-rolled loading/error bookkeeping. `staleTime` keeps quick student-switching
+  from refetching needlessly.
+- **Optimistic task updates.** The status change is applied to the cache
+  immediately for an instant feel, then **rolled back on error** and the query is
+  **invalidated on settle** so derived fields (urgency, summary) re-sync with the
+  source of truth. Tradeoff: extra rollback logic and one refetch per change in
+  exchange for a snappy UI that can't drift from the server.
+- **Request-id correlation.** Logs and error responses share one id, so a user
+  report (“I got error X, request abc-123”) maps straight to the log line — cheap
+  to add, high debugging leverage in production.
+- **In-memory store.** Task updates mutate an array and reset on restart. Zero
+  setup for the assessment; the service boundary is where a real repository + DB
+  would slot in without touching controllers or the frontend.
+- **One test runner (Vitest) across both apps.** Native ESM/TS, no `ts-jest`
+  config, one mental model. Integration tests exercise the real Express app
+  through Supertest (no port bound), so they catch routing/middleware/contract
+  regressions a pure unit test would miss.
