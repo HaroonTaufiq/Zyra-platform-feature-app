@@ -3,6 +3,7 @@ import { studentsRouter } from "./routes/students.routes.js";
 import { tasksRouter } from "./routes/tasks.routes.js";
 import { requestId } from "./middleware/requestId.js";
 import { httpLogger } from "./middleware/logging.js";
+import { errorHandler, notFoundHandler } from "./middleware/errorHandler.js";
 
 /**
  * Builds the Express application.
@@ -24,6 +25,9 @@ export function createApp(): Express {
 
   app.use("/students", studentsRouter);
   app.use("/tasks", tasksRouter);
+
+  app.use(notFoundHandler);
+  app.use(errorHandler);
 
   return app;
 }
