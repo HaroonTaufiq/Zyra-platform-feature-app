@@ -36,5 +36,5 @@ services:
     routes:
       # SPA fallback so deep links resolve to index.html
       - type: rewrite
-        path: /*
+        source: /*
         destination: /index.html
