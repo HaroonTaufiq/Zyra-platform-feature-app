@@ -9,8 +9,11 @@ status inline.
 - **Monorepo:** npm workspaces (`apps/backend`, `apps/frontend`)
 
 > **Task 2 (production hardening — logging, error middleware with request IDs,
-> integration + frontend tests, CI) lives on the [`bonus`](../../tree/bonus)
-> branch.** See its README section for performance notes and the CI run.
+> integration + frontend tests, CI) is merged into `main`** — see the
+> [Task 2 section](#task-2--production-enhancements) below. The isolated
+> Task 1 → Task 2 diff is preserved in
+> [PR #1](https://github.com/HaroonTaufiq/Zyra-platform-feature-app/pull/1)
+> (branch [`bonus`](../../tree/bonus)).
 
 ---
 
@@ -76,7 +79,7 @@ change a task's status from its dropdown, and watch the badges/counts update.
 
 ```bash
 npm run build          # builds both workspaces
-npm test               # runs tests in both workspaces (real tests on bonus branch)
+npm test               # runs tests in both workspaces (backend 14 + frontend 6)
 npm run dev:backend    # API in watch mode (tsx)
 npm run dev:frontend   # Vite dev server
 ```
@@ -180,10 +183,11 @@ to test. API types mirror the backend so the contract is enforced end-to-end.
 
 ---
 
-## Task 2 — Production Enhancements (`bonus` branch)
+## Task 2 — Production Enhancements
 
-Task 1 is on `main`; the production-hardening work lives on **`bonus`** so the
-diff is reviewable on its own. It adds:
+Production-hardening work, developed on the `bonus` branch and merged into `main`
+via [PR #1](https://github.com/HaroonTaufiq/Zyra-platform-feature-app/pull/1) (which
+preserves the isolated Task 1 → Task 2 diff). It adds:
 
 - **Request logging** — `morgan` logs every HTTP request (method, path, status,
   duration), prefixed with the request id. Quiet during tests.
@@ -204,9 +208,8 @@ diff is reviewable on its own. It adds:
 Run everything locally:
 
 ```bash
-git checkout bonus
 npm install
-npm test          # backend (13) + frontend (6) — all green
+npm test          # backend (14) + frontend (6) — all green
 ```
 
 ### Performance decisions & tradeoffs
