@@ -30,6 +30,18 @@ describe("GET /students/:id/action-center", () => {
   });
 });
 
+describe("CORS", () => {
+  it("reflects the request origin so a browser client is allowed", async () => {
+    const res = await request(app)
+      .get("/students/stu_001/action-center")
+      .set("Origin", "http://localhost:5173");
+
+    expect(res.headers["access-control-allow-origin"]).toBe(
+      "http://localhost:5173",
+    );
+  });
+});
+
 describe("PATCH /tasks/:taskId/status", () => {
   it("updates a task status and returns 200", async () => {
     const res = await request(app)
