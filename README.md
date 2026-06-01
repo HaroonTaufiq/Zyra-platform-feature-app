@@ -84,6 +84,26 @@ npm run dev:backend    # API in watch mode (tsx)
 npm run dev:frontend   # Vite dev server
 ```
 
+## Deployment (Render)
+
+A [`render.yaml`](render.yaml) Blueprint deploys both apps together — the API as a
+Node web service and the web client as a static site.
+
+1. In Render: **New → Blueprint**, connect this repo. Render reads `render.yaml`
+   and proposes both services.
+2. When prompted for **`VITE_API_URL`** (web service), enter the API's URL —
+   typically `https://zyra-action-center-api.onrender.com`. Click **Apply**.
+3. After both deploy, open the web service URL. If the API got a different URL
+   than expected, update `VITE_API_URL` on the static site in the dashboard and
+   trigger a redeploy.
+
+Notes:
+- The API is an **in-memory store**, so task edits reset when the free instance
+  cold-starts or redeploys — expected for a demo.
+- CORS is permissive by default (reflects the request origin). To lock it to the
+  web app's origin, set `CORS_ORIGIN` on the API service (see `render.yaml`).
+- Free web services sleep when idle, so the first request after a pause is slow.
+
 ---
 
 ## API contract

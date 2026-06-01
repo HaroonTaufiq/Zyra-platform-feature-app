@@ -1,0 +1,40 @@
+# Render Blueprint — deploys the API (Node web service) and the web client
+# (static site) together from this monorepo.
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  # ── Express API ──────────────────────────────────────────────────────────
+  - name: zyra-action-center-api
+    type: web
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci && npm run build -w apps/backend
+    startCommand: node apps/backend/dist/index.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      # Optional: lock CORS to the web app's URL. Left unset, the API reflects
+      # the request origin (fine for a demo). To tighten, add this in the
+      # dashboard, e.g. https://zyra-action-center-web.onrender.com
+      # - key: CORS_ORIGIN
+      #   sync: false
+
+  # ── React web client (static) ────────────────────────────────────────────
+  - name: zyra-action-center-web
+    type: web
+    runtime: static
+    buildCommand: npm ci && npm run build -w apps/frontend
+    staticPublishPath: apps/frontend/dist
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      # Set to the API service URL when prompted during Blueprint creation,
+      # e.g. https://zyra-action-center-api.onrender.com
+      - key: VITE_API_URL
+        sync: false
+    routes:
+      # SPA fallback so deep links resolve to index.html
+      - type: rewrite
+        path: /*
+        destination: /index.html
