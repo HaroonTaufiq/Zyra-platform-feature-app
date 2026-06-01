@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import { getActionCenter } from "../services/actionCenter.service.js";
+import { AppError } from "../lib/AppError.js";
 
 /** GET /students/:id/action-center */
 export function getStudentActionCenter(req: Request, res: Response): void {
@@ -7,11 +8,11 @@ export function getStudentActionCenter(req: Request, res: Response): void {
   const actionCenter = getActionCenter(id);
 
   if (!actionCenter) {
-    res.status(404).json({
-      error: "STUDENT_NOT_FOUND",
-      message: `No student found with id '${id}'.`,
-    });
-    return;
+    throw new AppError(
+      404,
+      "STUDENT_NOT_FOUND",
+      `No student found with id '${id}'.`,
+    );
   }
 
   res.json(actionCenter);
