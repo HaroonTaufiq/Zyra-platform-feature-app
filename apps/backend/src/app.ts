@@ -1,4 +1,6 @@
 import express, { type Express } from "express";
+import { studentsRouter } from "./routes/students.routes.js";
+import { tasksRouter } from "./routes/tasks.routes.js";
 
 /**
  * Builds the Express application.
@@ -15,6 +17,9 @@ export function createApp(): Express {
   app.get("/health", (_req, res) => {
     res.json({ status: "ok", service: "zyra-action-center-api" });
   });
+
+  app.use("/students", studentsRouter);
+  app.use("/tasks", tasksRouter);
 
   return app;
 }
