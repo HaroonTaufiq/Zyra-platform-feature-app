@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Test / coverage
+coverage/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.local
+
+# Local-only tooling & planning (not part of the deliverable)
+.claude/
+planning/
+*.plan.md

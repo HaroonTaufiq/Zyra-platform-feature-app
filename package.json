@@ -1,0 +1,20 @@
+{
+  "name": "zyra-action-center",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Counselor Student Action Center — full-stack feature (Express + React)",
+  "workspaces": [
+    "apps/backend",
+    "apps/frontend"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev -w apps/backend",
+    "dev:frontend": "npm run dev -w apps/frontend",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
