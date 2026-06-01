@@ -64,7 +64,7 @@ export function StudentActionCenter({ studentId }: { studentId: string }) {
       />
 
       <div className="grid gap-6 lg:grid-cols-3">
-        <section className="lg:col-span-2">
+        <section className="min-w-0 lg:col-span-2">
           <h2 className="mb-3 text-lg font-semibold text-slate-900">
             Tasks
             <span className="ml-2 text-sm font-normal text-slate-400">
@@ -80,7 +80,7 @@ export function StudentActionCenter({ studentId }: { studentId: string }) {
           />
         </section>
 
-        <div className="lg:col-span-1">
+        <div className="min-w-0 lg:col-span-1">
           <MessagesSummary
             messages={data.messages}
             unreadCount={data.unreadMessagesCount}
