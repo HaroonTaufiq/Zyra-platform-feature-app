@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+/* Zyra brand palette — built around the favicon blue (#5080f0). */
+@theme {
+  --color-brand-50: #eef3fe;
+  --color-brand-100: #d8e3fd;
+  --color-brand-200: #b8ccfb;
+  --color-brand-300: #8fadf8;
+  --color-brand-400: #6b90f4;
+  --color-brand-500: #5080f0;
+  --color-brand-600: #3f6ae0;
+  --color-brand-700: #3354c4;
+  --color-brand-800: #2c47a0;
+  --color-brand-900: #283f80;
+  --color-brand-950: #1b2a5a;
+}
