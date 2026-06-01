@@ -15,25 +15,25 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <header className="bg-gradient-to-r from-brand-950 via-brand-800 to-brand-600">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-4">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-3 gap-y-1 px-4 py-3 sm:py-4">
           <div className="flex items-center gap-3">
             <img
               src="/zyra-wordmark.png"
               alt="Zyra"
-              className="h-7 w-auto"
+              className="h-6 w-auto sm:h-7"
             />
             <span className="hidden h-5 w-px bg-white/30 sm:block" />
             <span className="hidden text-sm font-medium text-white/80 sm:block">
               Counselor workspace
             </span>
           </div>
-          <h1 className="text-lg font-semibold text-white">
+          <h1 className="text-base font-semibold text-white sm:text-lg">
             Student Action Center
           </h1>
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-4 py-6">
+      <main className="mx-auto max-w-5xl px-4 py-6 sm:py-8">
         <nav className="mb-6 flex flex-wrap gap-2" aria-label="Students">
           {STUDENTS.map((s) => (
             <button

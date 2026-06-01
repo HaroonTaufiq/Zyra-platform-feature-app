@@ -23,7 +23,7 @@ export function TaskItem({
         isUpdating ? "opacity-60" : ""
       }`}
     >
-      <div className="flex flex-wrap items-start justify-between gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             <PriorityBadge priority={task.priority} />
@@ -46,7 +46,7 @@ export function TaskItem({
           </p>
         </div>
 
-        <label className="flex flex-col items-end gap-1 text-xs text-slate-400">
+        <label className="flex shrink-0 flex-col gap-1 text-xs text-slate-400 sm:items-end">
           <span className="sr-only">Status for {task.title}</span>
           <select
             aria-label={`Status for ${task.title}`}
@@ -55,7 +55,7 @@ export function TaskItem({
             onChange={(e) =>
               onStatusChange(task.id, e.target.value as TaskStatus)
             }
-            className="rounded-md border border-slate-300 bg-white px-2 py-1 text-sm text-slate-700 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 focus:outline-none disabled:cursor-not-allowed"
+            className="w-full rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm text-slate-700 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 focus:outline-none disabled:cursor-not-allowed sm:w-auto"
           >
             {STATUSES.map((s) => (
               <option key={s} value={s}>

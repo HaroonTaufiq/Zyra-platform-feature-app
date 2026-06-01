@@ -9,7 +9,7 @@ export function MessagesSummary({
   unreadCount: number;
 }) {
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+    <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold text-slate-900">Messages</h2>
         <span
@@ -31,16 +31,16 @@ export function MessagesSummary({
             }`}
           >
             <div className="flex items-center justify-between gap-2">
-              <span className="flex items-center gap-2 text-sm font-medium text-slate-900">
+              <span className="flex min-w-0 items-center gap-2 text-sm font-medium text-slate-900">
                 {!msg.read && (
                   <span
                     aria-label="unread"
-                    className="h-2 w-2 rounded-full bg-brand-500"
+                    className="h-2 w-2 shrink-0 rounded-full bg-brand-500"
                   />
                 )}
-                {msg.from}
+                <span className="truncate">{msg.from}</span>
               </span>
-              <span className="text-xs text-slate-400">
+              <span className="shrink-0 text-xs text-slate-400">
                 {formatDate(msg.receivedAt)}
               </span>
             </div>
