@@ -14,12 +14,22 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-5xl px-4 py-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-indigo-600">
-            Zyra · Counselor workspace
-          </p>
-          <h1 className="text-xl font-bold">Student Action Center</h1>
+      <header className="bg-gradient-to-r from-brand-950 via-brand-800 to-brand-600">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-4">
+          <div className="flex items-center gap-3">
+            <img
+              src="/zyra-wordmark.png"
+              alt="Zyra"
+              className="h-7 w-auto"
+            />
+            <span className="hidden h-5 w-px bg-white/30 sm:block" />
+            <span className="hidden text-sm font-medium text-white/80 sm:block">
+              Counselor workspace
+            </span>
+          </div>
+          <h1 className="text-lg font-semibold text-white">
+            Student Action Center
+          </h1>
         </div>
       </header>
 
@@ -32,7 +42,7 @@ export default function App() {
               onClick={() => setStudentId(s.id)}
               className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
                 s.id === studentId
-                  ? "bg-indigo-600 text-white"
+                  ? "bg-brand-500 text-white shadow-sm"
                   : "bg-white text-slate-600 ring-1 ring-slate-300 hover:bg-slate-100"
               }`}
             >

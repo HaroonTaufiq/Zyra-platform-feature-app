@@ -14,7 +14,7 @@ export function MessagesSummary({
         <h2 className="text-lg font-semibold text-slate-900">Messages</h2>
         <span
           data-testid="unread-count"
-          className="inline-flex items-center gap-1 rounded-full bg-indigo-100 px-3 py-1 text-sm font-semibold text-indigo-800"
+          className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-3 py-1 text-sm font-semibold text-brand-800"
         >
           {unreadCount} unread
         </span>
@@ -27,7 +27,7 @@ export function MessagesSummary({
             className={`rounded-lg border p-3 ${
               msg.read
                 ? "border-slate-200 bg-white"
-                : "border-indigo-200 bg-indigo-50/50"
+                : "border-brand-200 bg-brand-50/60"
             }`}
           >
             <div className="flex items-center justify-between gap-2">
@@ -35,7 +35,7 @@ export function MessagesSummary({
                 {!msg.read && (
                   <span
                     aria-label="unread"
-                    className="h-2 w-2 rounded-full bg-indigo-500"
+                    className="h-2 w-2 rounded-full bg-brand-500"
                   />
                 )}
                 {msg.from}

@@ -55,7 +55,7 @@ export function TaskItem({
             onChange={(e) =>
               onStatusChange(task.id, e.target.value as TaskStatus)
             }
-            className="rounded-md border border-slate-300 bg-white px-2 py-1 text-sm text-slate-700 focus:border-indigo-500 focus:outline-none disabled:cursor-not-allowed"
+            className="rounded-md border border-slate-300 bg-white px-2 py-1 text-sm text-slate-700 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 focus:outline-none disabled:cursor-not-allowed"
           >
             {STATUSES.map((s) => (
               <option key={s} value={s}>
