@@ -4,6 +4,12 @@ A small full-stack feature that helps a counselor quickly understand a student's
 priorities, tasks, unread messages, and overall urgency level — and update task
 status inline.
 
+**🔗 Live demo:** https://zyra-action-center-web.onrender.com
+&nbsp;·&nbsp; API: https://zyra-action-center-api.onrender.com/health
+
+> Hosted on Render's free tier — the API sleeps when idle, so the first request
+> after a pause may take ~30–60s to wake.
+
 - **Backend:** Node.js · Express · TypeScript
 - **Frontend:** React · TypeScript · Vite · Tailwind CSS v4 · TanStack Query
 - **Monorepo:** npm workspaces (`apps/backend`, `apps/frontend`)
